@@ -10,14 +10,14 @@ This Python script analyzes firewall logs, generates a comprehensive report, and
 - Generates a detailed textual report.
 - Optionally generates a PDF report if the user chooses.
 
-## Requirements
+## Prerquisits
 - Python 3.x
 - (Optional) FPDF module for PDF generation
 
 ## Usage
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/firewall-log-analyzer.git
+    [git clone https://github.com/yourusername/firewall-log-analyzer.git](https://github.com/Pawani-Dananjana/Python_Log_Analyzer.git)
     cd firewall-log-analyzer
     ```
 
