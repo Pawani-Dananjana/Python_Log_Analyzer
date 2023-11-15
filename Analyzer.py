@@ -1,7 +1,6 @@
 import re
 import csv
 from collections import defaultdict
-from fpdf import FPDF
 
 def parse_firewall_log(log_file):
     logs = []
@@ -32,6 +31,7 @@ def save_to_csv(logs, csv_filename):
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, extrasaction='ignore')
         writer.writeheader()
         for log in logs:
+            # Replace "-" with blank spaces in the 'Info' column
             log['Info'] = log['Info'].replace('-', '')
             writer.writerow(log)
 
@@ -149,7 +149,7 @@ def generate_report(analysis_result):
     destination_ports_details = generate_port_details(analysis_result['DestinationPorts'])
     report += destination_ports_details if destination_ports_details else "No Data.\n"
 
-    # Traffic Size Details
+    # Size Details
     report += "\nTraffic Size Details:\n"
     size_details = generate_size_details(analysis_result['PotentialAttacks'])
     report += size_details if size_details else "No Data.\n"
@@ -189,9 +189,9 @@ def generate_pdf_report(report, pdf_filename):
     pdf.output(pdf_filename)
 
 if __name__ == "__main__":
-    log_file = "firewall_log.txt"  # Replace with the actual firewall log file path as needed
-    csv_filename = "firewall_log.csv"  # Replace with the desired CSV file path as needed
-    pdf_filename = "firewall_log_analysis_report.pdf"  # Replace with the desired PDF file path as needed
+    log_file = "firewall_log.txt"  # Replace with the actual firewall log file path
+    csv_filename = "firewall_log.csv"  # Replace with the desired CSV file path
+    pdf_filename = "firewall_log_analysis_report.pdf"  # Replace with the desired PDF file path
 
     firewall_logs = parse_firewall_log(log_file)
 
@@ -208,5 +208,10 @@ if __name__ == "__main__":
     # Ask the user if they want to generate a PDF report
     generate_pdf = input("Do you want to generate a PDF report? (yes/no): ").lower()
     if generate_pdf == 'yes':
-        generate_pdf_report(report, pdf_filename)
-        print(f"PDF report saved to {pdf_filename}")
+        try:
+            from fpdf import FPDF
+        except ImportError:
+            print("The 'FPDF' module is required for PDF generation. Please install it using 'pip install fpdf'.")
+        else:
+            generate_pdf_report(report, pdf_filename)
+            print(f"PDF report saved to {pdf_filename}")
