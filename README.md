@@ -1,7 +1,7 @@
 # Python_Log_Analyzer
 
 ## Description
-This Python script analyzes firewall logs, generates a comprehensive report, and optionally creates a PDF report if it is needed by the user.
+This Python script analyzes firewall logs, generates a comprehensive report, and optionally creates a PDF report if it is needed by the user. A summery of the findings along with the recommendations is available in the Summary Report with Insights and Recommendations.pdf.
 
 ## Features
 - Parses firewall logs from a text file.
